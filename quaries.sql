@@ -1,3 +1,5 @@
+/* DAY 1 */
+
 SELECT * FROM animals WHERE name ilike '%mon'
 SELECT name FROM animals WHERE date_of_birth BETWEEN '01-01-2016' and '12-12-2019'
 SELECT name FROM animals WHERE neutered = '1' AND escape_attempts < 3
@@ -8,7 +10,9 @@ SELECT * FROM animals WHERE name != 'Gabumon'
 SELECT * FROM animals WHERE weight_kg BETWEEN 10.4 AND 17.3
 
 
-/* TITLE 2 Section 1 Week 2 */
+/* DAY 2 */
+
+/* TITLE 2 Section 1 */
 
 BEGIN;
 
@@ -18,7 +22,7 @@ SELECT * FROM animals
 
 ROLLBACK;
 
-/* TITLE 2 Section 2 Week 2 */
+/* TITLE 2 Section 2 */
 
 BEGIN; 
 UPDATE animals
@@ -33,7 +37,7 @@ COMMIT;
 
 SELECT * FROM animals
 
-/* TITLE 2 Section 3 Week 2 */
+/* TITLE 2 Section 3 */
 
 BEGIN;
 DELETE FROM animals
@@ -41,7 +45,7 @@ SELECT * FROM animals
 ROLLBACK;
 SELECT * FROM animals;
 
-/* TITLE 2 Section 4 Week 2 */
+/* TITLE 2 Section 4 */
 
 BEGIN;
 
@@ -68,9 +72,7 @@ COMMIT;
 
 SELECT * FROM animals;
 
-
-
-/* TITLE 3  WEEK 2*/
+/* DAY 2 TITLE 3 */
 
 /* 1 */
 
@@ -100,4 +102,87 @@ GROUP BY 1
 SELECT species, CAST(AVG(weight_kg) AS DECIMAL(10,3)) FROM animals
 WHERE date_of_birth BETWEEN '01-JAN-1990' AND '31-DEC-2000'
 GROUP BY 1
+
+/* DAY 3 */
+
+/* 1
+What animals belong to Melody Pond?
+*/
+
+SELECT an.id,an.name,an.owner_id,ow.full_name FROM animals an
+LEFT JOIN owners ow
+ON an.owner_id = ow.id
+WHERE ow.full_name = 'Melody Pond'
+ORDER BY an.id
+
+/* 2
+List of all animals that are pokemon (their type is Pokemon).
+*/
+
+SELECT an.id,an.name,an.species_id,sp.name FROM animals an
+LEFT JOIN species sp
+ON an.species_id = sp.id
+WHERE sp.name='Pokemon'
+ORDER BY an.id
+
+/* 3
+List all owners and their animals, remember to include those that don't own any animal.
+*/
+
+SELECT ow.full_name, an.name  FROM owners ow
+LEFT JOIN animals an
+ON ow.id = an.owner_id
+ORDER BY full_name;
+
+/* 4
+How many animals are there per species?
+*/
+
+SELECT sp.name as species_name, COUNT(an.id) FROM animals an
+LEFT JOIN species sp
+ON an.species_id = sp.id
+GROUP BY sp.name;
+
+/*
+List all Digimon owned by Jennifer Orwell.
+*/
+
+SELECT ow.full_name, an.name, sp.name  FROM owners ow
+LEFT JOIN animals an
+ON ow.id = an.owner_id 
+LEFT JOIN species sp
+ON an.species_id = sp.id
+WHERE ow.full_name = 'Jennifer Orwell'
+AND sp.name = 'Digimon'
+ORDER BY full_name;
+
+/*
+List all animals owned by Dean Winchester that haven't tried to escape.
+*/
+
+SELECT ow.full_name, an.name, an.escape_attempts  FROM animals an
+LEFT JOIN owners ow
+ON ow.id = an.owner_id
+WHERE ow.full_name = 'Dean Winchester'
+AND an.escape_attempts = 0
+
+/*
+Who owns the most animals?
+*/
+
+SELECT full_name, animal_owned_count FROM (
+SELECT ow.full_name, COUNT(an.id) as animal_owned_count FROM animals as an
+LEFT JOIN owners ow
+ON ow.id = an.owner_id
+GROUP BY 1
+HAVING COUNT(ow.id) = (SELECT MAX(animal_owned_count) FROM (
+SELECT ow.full_name, COUNT(an.id) as animal_owned_count FROM animals as an
+LEFT JOIN owners ow
+ON ow.id = an.owner_id
+GROUP BY 1
+) as foo)
+) as doo
+
+
+
 
