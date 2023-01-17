@@ -4,6 +4,8 @@ VALUES ('Agumon', '3-FEB-2020', 0, '1', 10.23 ),
 ('Pikachu', '7-JAN-2021', 1, '0',  15.04),
 ('Devimon', '12-MAY-2017', 5, '1', 11 );
 
+/* DAY 2 */
+
 INSERT INTO animals (name, date_of_birth, escape_attempts, neutered, weight_kg)
 VALUES ('Charmander', '8-FEB-2020', 0, '0', -11 ),
 ('Plantmon', '15-NOV-2021', 2, '1', -5.7 ),

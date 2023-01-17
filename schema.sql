@@ -7,5 +7,7 @@ CREATE TABLE animals(
   weight_kg DECIMAL NOT NULL
 );
 
+/* DAY 2 */
+
 ALTER TABLE animals
 ADD species VARCHAR;
