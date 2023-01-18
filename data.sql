@@ -104,3 +104,61 @@ ORDER BY id;
 
 COMMIT;
 
+/* DAY 4 */
+
+/* UPDATE the animal_id's in animals table */
+
+BEGIN;
+UPDATE animals SET id = 1 WHERE id = 12;
+UPDATE animals SET id = 2 WHERE id = 13;
+UPDATE animals SET id = 3 WHERE id = 14;
+UPDATE animals SET id = 4 WHERE id = 15;
+UPDATE animals SET id = 5 WHERE id = 16;
+UPDATE animals SET id = 6 WHERE id = 17;
+UPDATE animals SET id = 7 WHERE id = 18;
+UPDATE animals SET id = 8 WHERE id = 19;
+UPDATE animals SET id = 9 WHERE id = 20;
+UPDATE animals SET id = 10 WHERE id = 21;
+COMMIT;
+
+/* Fill the vets table */
+
+INSERT INTO vets (name, age, date_of_graduation)
+VALUES ('William Tatcher', 45, '23-APR-2000'),
+('Maisy Smith', 26,  '17-JAN-2019' ),
+('Stephanie Mendez', 64, '4-MAY-1981'),
+('Jack Harkness', 38, '8-JUN-2008');
+
+/* Fill the specializations table according to ids of vet_id and species_id from vets and species tables */
+
+INSERT INTO specializations (vet_id, species_id)
+VALUES (1, 1),
+(3, 1),
+(3, 2),
+(4, 2)
+
+/* Fill the visits table */
+
+INSERT INTO visits
+VALUES 
+(1, 1, '24-MAY-2020'),
+(1, 3, '22-JUL-2020'),
+(2, 4, '2-FEB-2021'),
+(3, 2, '5-JAN-2020'),
+(3, 2, '8-MAR-2020'),
+(3, 2, '14-MAY-2020'),
+(4, 3, '4-MAY-2021'),
+(5, 4, '24-FEB-2021'),
+(6, 2, '21-DEC-2019'),
+(6, 1, '10-AUG-2020'),
+(6, 2, '7-APR-2021'),
+(7, 3, '29-SEP-2019'),
+(8, 4, '3-OCT-2020'),
+(8, 4, '4-NOV-2020'),
+(9, 2, '24-JAN-2019'),
+(9, 2, '15-MAY-2019'),
+(9, 2, '27-FEB-2020'),
+(9, 2, '3-AUG-2020'),
+(10, 3, '24-MAY-2020'),
+(10, 1, '11-JAN-2021')
+
