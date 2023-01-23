@@ -162,3 +162,14 @@ VALUES
 (10, 3, '24-MAY-2020'),
 (10, 1, '11-JAN-2021')
 
+/* WEEK 2 DAY 1 */
+
+BEGIN;
+
+/* Run 3 times */
+INSERT INTO visits (animal_id, vet_id, visit_date) SELECT * FROM (SELECT id FROM animals) animal_ids, (SELECT id FROM vets) vets_ids, generate_series('1980-01-01'::timestamp, '2021-01-01', '4 hours') visit_timestamp;
+
+EXPLAIN ANALYZE SELECT COUNT(*) FROM visits where animal_id = 4;
+
+COMMIT;
+

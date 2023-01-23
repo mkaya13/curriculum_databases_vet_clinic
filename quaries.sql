@@ -294,9 +294,3 @@ ON an.id = tot.animal_id ) AS species_id_count_table
 LEFT JOIN species sp
 ON species_id_count_table.species_id = sp.id
 GROUP BY 1
-
-
-
-
-
-
