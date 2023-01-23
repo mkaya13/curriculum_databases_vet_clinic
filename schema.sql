@@ -165,4 +165,42 @@ CREATE TABLE visits (
  visit_date DATE
 )
 
+/* WEEK 2 DAY 1 */
 
+BEGIN;
+
+ALTER TABLE owners ADD COLUMN email VARCHAR(120);
+
+COMMIT;
+
+/* Performance Checks to query Tables */
+
+/* visits table performance improvements */
+
+-- Before adding the indexing
+BEGIN;
+
+/* Test 1 */
+EXPLAIN ANALYZE SELECT COUNT(*) FROM visits where animals_id = 4;
+SELECT COUNT(*) FROM visits where animals_id = 4;
+
+/* Test 2 */
+EXPLAIN ANALYZE SELECT * FROM visits where vet_id = 2;
+
+/* Add indexing to table */
+CREATE INDEX visits_animal_id_index ON visits(animal_id);
+
+-- After adding the indexing
+EXPLAIN ANALYZE SELECT COUNT(*) FROM visits WHERE animals_id = 4;
+EXPLAIN ANALYZE SELECT * FROM visits where vet_id = 2;
+
+COMMIT;
+
+/* owners table performance improvements */
+
+/* Test 1 */
+EXPLAIN ANALYZE SELECT * FROM owners where email = 'owner_18327@mail.com';
+
+/* After adding filtering to query, since we know the approximate location, significant performance improvement */
+EXPLAIN ANALYZE SELECT * FROM owners where email = 'owner_18327@mail.com'
+AND id between 15000 AND 35000
